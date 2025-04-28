@@ -1,4 +1,0 @@
-[2025-04-28 16:58:00,134][com_daimajia_gold.py 11][INFO]: 启动应用: com.daimajia.gold
-[2025-04-28 16:58:00,467][com_daimajia_gold.py 17][INFO]: 点击按钮: 我
-[2025-04-28 16:58:00,495][com_daimajia_gold.py 28][ERROR]: 签到失败: 'bool' object has no attribute 'exists'
-[2025-04-28 16:58:00,641][com_daimajia_gold.py 39][ERROR]: 关闭弹窗失败: 'bool' object has no attribute 'exists'
