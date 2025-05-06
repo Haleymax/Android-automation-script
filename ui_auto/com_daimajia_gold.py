@@ -10,6 +10,7 @@ class DaimajiaGold(BasePage):
     CLOSE_BUTTON_XPATH = '//*[@resource-id="android:id/content"]//android.widget.ImageView[1]'
     LOTTERY = '//*[@content-desc="去抽奖"]'
     CHECKIN_DAY = '//*[@content-desc="已连续签到 %d+ 天"]'
+    DRAW_ONE = '//*[@content-desc="幸运抽奖"]'
 
     def start_app(self):
         self.client.app_start(self.PACKAGE)
@@ -67,6 +68,18 @@ class DaimajiaGold(BasePage):
                 logger.info("去抽奖")
             else:
                 logger.warning("去抽奖")
+        except Exception as e:
+            logger.error(f"关闭弹窗失败: {e}")
+        sleep(2)
+
+    def draw_one(self):
+        try:
+            if self.client.xpath(self.DRAW_ONE).wait(timeout=10.0):
+                close_btn = self.client.click(0.278, 0.901)
+                close_btn.click()
+                logger.info("抽奖一次")
+            else:
+                logger.warning("抽奖一次")
         except Exception as e:
             logger.error(f"关闭弹窗失败: {e}")
         sleep(2)
