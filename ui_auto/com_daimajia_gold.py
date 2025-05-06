@@ -1,3 +1,5 @@
+from time import sleep
+
 from config.apps import apps
 from ui_auto.base_page import BasePage
 from utils.logger import logger
@@ -10,6 +12,7 @@ class DaimajiaGold(BasePage):
     def start_app(self):
         self.client.app_start(self.PACKAGE)
         logger.info(f"启动应用: {apps[self.PACKAGE]}")
+        sleep(2)
 
     def click_me(self, text="我"):
         try:
@@ -18,6 +21,7 @@ class DaimajiaGold(BasePage):
                 logger.info(f"点击按钮: {text}")
         except Exception as e:
             logger.error(f"点击'{text}'失败: {e}")
+        sleep(2)
 
     def click_check_in(self):
         try:
@@ -27,6 +31,7 @@ class DaimajiaGold(BasePage):
                 logger.info("点击签到成功")
         except Exception as e:
             logger.error(f"签到失败: {e}")
+        sleep(2)
 
     def close_lottery(self):
         try:
@@ -38,6 +43,7 @@ class DaimajiaGold(BasePage):
                 logger.warning("未找到关闭按钮")
         except Exception as e:
             logger.error(f"关闭弹窗失败: {e}")
+        sleep(2)
 
     def close_app(self):
         self.client.app_stop(self.PACKAGE)
