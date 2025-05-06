@@ -1,3 +1,6 @@
 ﻿log
 .venv
 ui_auto/__pycache__
+package
+config/__pycache__
+config/__pycache__

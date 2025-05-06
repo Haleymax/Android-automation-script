@@ -1,0 +1,21 @@
+import time
+from time import sleep
+
+from config.path import file_path
+from ui_auto.webglhost_page import WebGLHost
+
+
+def webglhost_ui_auto():
+    app = WebGLHost()
+    app.uninstall_app("com.u3d.webglhost")
+    app.start_install_watcher()
+    app.install_app(package_path=file_path)
+    sleep(6)
+    app.stop_watcher()
+    while True:
+        app.start_app()
+        app.set_pop_window()
+        time.sleep(2)
+        app.close_app()
+        time.sleep(2)
+webglhost_ui_auto()
