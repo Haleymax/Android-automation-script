@@ -4,3 +4,6 @@ ui_auto/__pycache__
 package
 config/__pycache__
 config/__pycache__
+test
+.idea
+config/watchers/__pycache__
