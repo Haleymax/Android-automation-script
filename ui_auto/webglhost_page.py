@@ -34,6 +34,16 @@ class WebGLHost(BasePage):
         logger.info(f"启动应用: {apps[self.PACKAGE]}")
         sleep(2)
 
+    def one_plus_passwd(self):
+        logger.info("启动一个密码watcher")
+        self.client.watcher("1").when(xpath='//*[@content-desc="1"]').click()
+        self.client.watcher.start(interval=1.0)
+
+    def weak_device(self):
+        self.client.screen_on()
+        self.client.swipe(0.434, 0.882, 0.489, 0.157)
+        logger.info(f"唤醒设备")
+
     def start_install_watcher(self):
         install_watchers = INSTALL[self.brand]
         for key in install_watchers:
