@@ -1,15 +1,15 @@
-PERMISSIONWINDOWS = {
+WINDOWS = {
     "OPPO" : {
-       "microphone": ["com.android.permissioncontroller:id/grant_singleton", "使用时允许"],
+       "permission": ["com.android.permissioncontroller:id/grant_singleton", "使用时允许"],
     },
     "OnePlus" : {
-       "microphone": ["com.android.permissioncontroller:id/grant_singleton", "使用时允许"],
+       "permission": ["com.android.permissioncontroller:id/grant_singleton", "使用时允许"],
     },
     "Xiaomi" : {
-        "microphone": ["com.lbe.security.miui:id/permission_group_icon", "仅在使用中允许"],
+        "permission": ["com.lbe.security.miui:id/permission_group_icon", "仅在使用中允许"],
     },
     "vivo" : {
-        "microphone": ["com.android.permissioncontroller:id/grant_scroll", "使用应用时允许"]
+        "permission": ["com.android.permissioncontroller:id/grant_scroll", "使用应用时允许"]
     }
 }
 
@@ -32,7 +32,7 @@ INSTALL = {
     }
 }
 
-ONEPLUS = {
+LOCK_SCREEN = {
     "1" : '//*[@content-desc="1"]',
     "2" : '//*[@content-desc="2"]',
     "3" : '//*[@content-desc="3"]',

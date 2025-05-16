@@ -1,20 +1,44 @@
 from time import sleep
+from tkinter.tix import Select
+from turtledemo.paint import switchupdown
 
 from config.apps import apps
-from config.watchers.webglhost import PERMISSIONWINDOWS, INSTALL
 
 from ui_auto.base_page import BasePage
+from utils import mongo
 from utils.logger import logger
 
+collection = "watcher"
 
 class WebGLHost(BasePage):
     PACKAGE = "com.u3d.webglhost"
     watcher_start = False
+    PERMISSIONWINDOWS = []
+    INSTALL = []
 
-    def set_pop_window(self):
-        perssions = PERMISSIONWINDOWS[self.brand]
-        for key in perssions:
-            self.check_permission(perssions[key][0])
+    def load_watcher(self):
+        mongo_client = mongo.get()
+        permission_query = {"brand": self.brand, "tag": "PERMISSION"}
+        install_query = {"brand": self.brand, "tag": "INSTALL"}
+        permission_objs = mongo_client.find_all(collection, permission_query)
+        install_objs = mongo_client.find_all(collection, install_query)
+        for permission in permission_objs:
+            record = {
+                "name": permission["name"],
+                "resource": permission["resource"],
+                "click": permission["click"],
+            }
+            self.PERMISSIONWINDOWS.append(record)
+
+        for install in install_objs:
+            record = {
+                "name": install["name"],
+                "resource": install["resource"],
+                "click": install["click"],
+            }
+            self.INSTALL.append(record)
+
+
 
     def check_permission(self, permission_id):
         if self.client(resourceId=permission_id).exists():
@@ -45,21 +69,14 @@ class WebGLHost(BasePage):
         logger.info(f"唤醒设备")
 
     def start_install_watcher(self):
-        install_watchers = INSTALL[self.brand]
-        for key in install_watchers:
-            self.client.watcher(key).when(
-                xpath=install_watchers[key]
-            ).click()
-
+        for watcher in self.INSTALL:
+            self.client.watcher(watcher["name"]).when(watcher["resource"]).when(watcher["click"]).click()
         self.client.watcher.start(interval=1.0)
-        logger.info("所有 Watcher 已启动")
+        logger.info("启动安装相关的watcher")
 
     def start_after_watcher(self):
-        permission_watchers = PERMISSIONWINDOWS[self.brand]
-        for key in permission_watchers:
-            self.client.watcher(key).when(
-                xpath=permission_watchers[key][1]
-            ).click()
+        for watcher in self.PERMISSIONWINDOWS:
+            self.client.watcher(watcher["name"]).when(watcher["resource"]).when(watcher["click"]).click()
         self.client.watcher.start(interval=1.0)
 
     def stop_watcher(self):
