@@ -7,6 +7,7 @@ from ui_auto.webglhost_page import WebGLHost
 
 def webglhost_ui_auto():
     app = WebGLHost()
+    app.load_watcher()
     app.uninstall_app("com.u3d.webglhost")
     app.one_plus_passwd()
     app.weak_device()
@@ -16,7 +17,8 @@ def webglhost_ui_auto():
     app.stop_watcher()
     while True:
         app.start_app()
-        app.set_pop_window()
+        for pes in app.PERMISSIONWINDOWS:
+            app.check_permission(pes["resource"])
         time.sleep(20)
         app.close_app()
         time.sleep(2)

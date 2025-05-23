@@ -7,3 +7,5 @@ config/__pycache__
 test
 .idea
 config/watchers/__pycache__
+utils/__pycache__
+cmd/__pycache__

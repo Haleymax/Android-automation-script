@@ -1,22 +1,45 @@
+import time
 from time import sleep
 
 from config.apps import apps
-from config.watchers.webglhost import PERMISSIONWINDOWS, INSTALL
 
 from ui_auto.base_page import BasePage
+from utils import mongo
 from utils.logger import logger
 
+collection = "watcher"
 
 class WebGLHost(BasePage):
     PACKAGE = "com.u3d.webglhost"
     watcher_start = False
+    PERMISSIONWINDOWS = []
+    INSTALL = []
 
-    def set_pop_window(self):
-        perssions = PERMISSIONWINDOWS[self.brand]
-        for key in perssions:
-            self.check_permission(perssions[key][0])
+    def load_watcher(self):
+        mongo_client = mongo.get()
+        permission_query = {"brand": self.brand, "tag": "PERMISSION"}
+        install_query = {"brand": self.brand, "tag": "INSTALL"}
+        permission_objs = mongo_client.find_all(collection, permission_query)
+        install_objs = mongo_client.find_all(collection, install_query)
+        for permission in permission_objs:
+            record = {
+                "name": permission["name"],
+                "resource": permission["resource"],
+                "click": permission["click"],
+            }
+            self.PERMISSIONWINDOWS.append(record)
 
-    def check_permission(self, permission_id):
+        for install in install_objs:
+            record = {
+                "name": install["name"],
+                "resource": install["resource"],
+                "click": install["click"],
+            }
+            self.INSTALL.append(record)
+
+
+
+    def _identify_pop_ups(self, permission_id):
         if self.client(resourceId=permission_id).exists():
             logger.info("弹窗存在")
             self.start_after_watcher()
@@ -28,6 +51,9 @@ class WebGLHost(BasePage):
             if self.watcher_start:
                 self.stop_watcher()
                 self.watcher_start = False
+
+    # def check_pop_ups(self):
+
 
     def start_app(self):
         self.client.app_start(self.PACKAGE)
@@ -45,21 +71,14 @@ class WebGLHost(BasePage):
         logger.info(f"唤醒设备")
 
     def start_install_watcher(self):
-        install_watchers = INSTALL[self.brand]
-        for key in install_watchers:
-            self.client.watcher(key).when(
-                xpath=install_watchers[key]
-            ).click()
-
+        for watcher in self.INSTALL:
+            self.client.watcher(watcher["name"]).when(watcher["resource"]).when(watcher["click"]).click()
         self.client.watcher.start(interval=1.0)
-        logger.info("所有 Watcher 已启动")
+        logger.info("启动安装相关的watcher")
 
     def start_after_watcher(self):
-        permission_watchers = PERMISSIONWINDOWS[self.brand]
-        for key in permission_watchers:
-            self.client.watcher(key).when(
-                xpath=permission_watchers[key][1]
-            ).click()
+        for watcher in self.PERMISSIONWINDOWS:
+            self.client.watcher(watcher["name"]).when(watcher["resource"]).when(watcher["click"]).click()
         self.client.watcher.start(interval=1.0)
 
     def stop_watcher(self):
@@ -68,3 +87,43 @@ class WebGLHost(BasePage):
     def close_app(self):
         self.client.app_stop(self.PACKAGE)
         logger.info(f"关闭应用: {apps[self.PACKAGE]}")
+
+    def click_sdk_sample(self, resourceId="com.u3d.webglhost:id/sdkSampleBt"):
+        sdk_sample_btn = self.client(resourceId=resourceId)
+        sdk_sample_btn.click()
+        logger.info("点击sdk sample 按钮")
+        time.sleep(1.5)
+
+    def input_url(self, url, resourceId="com.u3d.webglhost:id/server_address_et"):
+        address_et = self.client(resourceId=resourceId)
+        address_et.set_text(url)
+        print("input url")
+        time.sleep(1.5)
+        self.client.click(0.909, 0.675)
+        print("back")
+
+    def select_wxminigame(self, resourceId='com.u3d.webglhost:id/btnweWeixinminigame'):
+        wxmini_game_opt = self.client(resourceId=resourceId)
+        wxmini_game_opt.click()
+        logger.info("点击weixinminigame")
+        time.sleep(1.5)
+
+    def click_start(self, resourceId='com.u3d.webglhost:id/start_btn'):
+        start_btn = self.client(resourceId=resourceId)
+        start_btn.click()
+        logger.info("点击start 按钮")
+        time.sleep(1.5)
+
+    def click_play(self, resourceId='com.u3d.webglhost:id/play_btn'):
+        play_btn = self.client(resourceId=resourceId)
+        play_btn.click()
+        logger.info("点击play 按钮")
+        time.sleep(1.5)
+
+
+    def click_destroy(self, resourceId='com.u3d.webglhost:id/destroy_handle'):
+        destroy_btn = self.client(resourceId=resourceId)
+        destroy_btn.click()
+        logger.info("点击play 按钮")
+        time.sleep(1.5)
+
