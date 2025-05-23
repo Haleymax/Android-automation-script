@@ -9,7 +9,7 @@ from config.settings import ENV
 global_session = None
 
 class Session:
-    def __init__(self, uri: str, database: str = "test"):
+    def __init__(self, uri: str, database: str = "webglhost"):
         self.client = MongoClient(uri)
         self.db = self.client[database]
 

@@ -4,7 +4,7 @@ mongo = {
     "dev": {
         "host": "localhost",
         "port": 27017,
-        "database": "test",
+        "database": "webglhost",
     }
 }
 

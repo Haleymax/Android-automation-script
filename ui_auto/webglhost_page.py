@@ -1,6 +1,5 @@
+import time
 from time import sleep
-from tkinter.tix import Select
-from turtledemo.paint import switchupdown
 
 from config.apps import apps
 
@@ -40,7 +39,7 @@ class WebGLHost(BasePage):
 
 
 
-    def check_permission(self, permission_id):
+    def _identify_pop_ups(self, permission_id):
         if self.client(resourceId=permission_id).exists():
             logger.info("弹窗存在")
             self.start_after_watcher()
@@ -52,6 +51,9 @@ class WebGLHost(BasePage):
             if self.watcher_start:
                 self.stop_watcher()
                 self.watcher_start = False
+
+    # def check_pop_ups(self):
+
 
     def start_app(self):
         self.client.app_start(self.PACKAGE)
@@ -85,3 +87,43 @@ class WebGLHost(BasePage):
     def close_app(self):
         self.client.app_stop(self.PACKAGE)
         logger.info(f"关闭应用: {apps[self.PACKAGE]}")
+
+    def click_sdk_sample(self, resourceId="com.u3d.webglhost:id/sdkSampleBt"):
+        sdk_sample_btn = self.client(resourceId=resourceId)
+        sdk_sample_btn.click()
+        logger.info("点击sdk sample 按钮")
+        time.sleep(1.5)
+
+    def input_url(self, url, resourceId="com.u3d.webglhost:id/server_address_et"):
+        address_et = self.client(resourceId=resourceId)
+        address_et.set_text(url)
+        print("input url")
+        time.sleep(1.5)
+        self.client.click(0.909, 0.675)
+        print("back")
+
+    def select_wxminigame(self, resourceId='com.u3d.webglhost:id/btnweWeixinminigame'):
+        wxmini_game_opt = self.client(resourceId=resourceId)
+        wxmini_game_opt.click()
+        logger.info("点击weixinminigame")
+        time.sleep(1.5)
+
+    def click_start(self, resourceId='com.u3d.webglhost:id/start_btn'):
+        start_btn = self.client(resourceId=resourceId)
+        start_btn.click()
+        logger.info("点击start 按钮")
+        time.sleep(1.5)
+
+    def click_play(self, resourceId='com.u3d.webglhost:id/play_btn'):
+        play_btn = self.client(resourceId=resourceId)
+        play_btn.click()
+        logger.info("点击play 按钮")
+        time.sleep(1.5)
+
+
+    def click_destroy(self, resourceId='com.u3d.webglhost:id/destroy_handle'):
+        destroy_btn = self.client(resourceId=resourceId)
+        destroy_btn.click()
+        logger.info("点击play 按钮")
+        time.sleep(1.5)
+
