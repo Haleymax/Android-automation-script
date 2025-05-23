@@ -1,7 +1,9 @@
+import os.path
 import time
 from time import sleep
 
 from config.apps import apps
+from config.path import screen_path
 
 from ui_auto.base_page import BasePage
 from utils import mongo
@@ -97,10 +99,9 @@ class WebGLHost(BasePage):
     def input_url(self, url, resourceId="com.u3d.webglhost:id/server_address_et"):
         address_et = self.client(resourceId=resourceId)
         address_et.set_text(url)
-        print("input url")
+        logger.info(f"输入: {url}")
         time.sleep(1.5)
-        self.client.click(0.909, 0.675)
-        print("back")
+        self.client.press("back")
 
     def select_wxminigame(self, resourceId='com.u3d.webglhost:id/btnweWeixinminigame'):
         wxmini_game_opt = self.client(resourceId=resourceId)
@@ -126,4 +127,9 @@ class WebGLHost(BasePage):
         destroy_btn.click()
         logger.info("点击play 按钮")
         time.sleep(1.5)
+
+    def screen_to_file(self, file_name):
+        path = os.path.join(screen_path, file_name)
+        self.client.screenshot(path)
+        logger.info("保存图片")
 
