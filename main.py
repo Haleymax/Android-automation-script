@@ -1,4 +1,3 @@
-from config.config import get
+from utils.mongo import get_mongo_client
 
-app = get()
-print(app.config_data)
+mongo = get_mongo_client()
