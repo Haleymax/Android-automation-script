@@ -5,7 +5,7 @@ from time import sleep
 from config.apps import apps
 from config.path import screen_path
 
-from ui_auto.base_page import BasePage
+from pages.base_page import BasePage
 from utils import mongo
 from utils.logger import logger
 

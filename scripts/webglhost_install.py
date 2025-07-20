@@ -2,7 +2,7 @@ import time
 from time import sleep
 
 from config.path import file_path
-from ui_auto.webglhost_page import WebGLHost
+from pages.webglhost_page import WebGLHost
 
 
 def webglhost_ui_auto():

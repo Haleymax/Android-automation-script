@@ -1,4 +1,4 @@
-from ui_auto.com_daimajia_gold import DaimajiaGold
+from pages.com_daimajia_gold import DaimajiaGold
 
 def auto_check_in():
     app = DaimajiaGold()

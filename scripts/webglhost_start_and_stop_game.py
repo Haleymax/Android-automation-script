@@ -1,7 +1,7 @@
 import time
 from datetime import datetime
 from utils.logger import logger
-from ui_auto.webglhost_page import WebGLHost
+from pages.webglhost_page import WebGLHost
 
 url = ["https://minigamehost.cdn.unity.cn/wxgames/sqcs7", "https://minigamehost.cdn.unity.cn/wxgames/zdlz2", "https://minigamehost.cdn.unity.cn/wxgames/jsjs9"]
 

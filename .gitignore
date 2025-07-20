@@ -1,6 +1,6 @@
 ﻿log
 .venv
-ui_auto/__pycache__
+pages/__pycache__
 package
 config/__pycache__
 config/__pycache__
@@ -10,3 +10,4 @@ config/watchers/__pycache__
 utils/__pycache__
 cmd/__pycache__
 picture
+config/config.yaml
