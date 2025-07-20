@@ -1,10 +1,6 @@
-from typing import Any, Mapping
-
 from pymongo import MongoClient
-from pymongo.synchronous.cursor import Cursor
 
-from config import settings
-from config.settings import ENV
+from config.config import get_config
 
 global_session = None
 
@@ -28,14 +24,19 @@ class Session:
         res = self.c(collection).find(query)
         return list(res)
 
-def get():
+def get_mongo_client():
     global global_session
     if global_session is None:
-        config = settings.config['mongo'][ENV]
-        host = config['host']
-        port = config['port']
-        database = config['database']
-        mongo_uri = f'mongodb://{host}:{port}'
+        config = get_config()
+        mongo_config = config.get("mongo")
+        host = mongo_config.get("host")
+        port = mongo_config.get("port")
+        username = mongo_config.get("user")
+        password = mongo_config.get("password")
+        database = mongo_config.get("database")
+
+        mongo_uri = f'mongodb://{username}:{password}@{host}:{port}'
         session = Session(mongo_uri, database)
         global_session = session
         return global_session
+    return global_session

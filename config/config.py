@@ -34,7 +34,7 @@ class AppConfig:
         """重新加载配置"""
         self._load_config()
 
-def get():
+def get_config():
     """获取全局配置实例"""
     global app_config
     if app_config is None:
