@@ -1,7 +1,7 @@
 from time import sleep
 
 from config.apps import apps
-from ui_auto.base_page import BasePage
+from pages.base_page import BasePage
 from utils.logger import logger
 
 class DaimajiaGold(BasePage):
