@@ -16,11 +16,16 @@ class TestDailyCheckIn:
         allure.step("进行ui自动化操作")
         logger.info("进行自动化操作")
         app = DaimajiaGold()
+        app.weak_up()
+        app.unlock()
         app.start_app()
         app.click_me()
-        app.click_check_in()
-        app.click_check_in_days()
-        app.close_lottery()
+        file = app.get_screenshot("me")
+        allure.attach.file(
+            source=file,
+            name="screenshot",
+            attachment_type=allure.attachment_type.PNG,
+        )
         app.close_app()
 
         assert True

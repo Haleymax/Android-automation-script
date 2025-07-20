@@ -15,3 +15,4 @@ config/dev_config.yaml
 result
 test_case/test_daimajia_gold/__pycache__
 test_case/__pycache__
+media/screenshot

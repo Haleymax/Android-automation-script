@@ -8,11 +8,9 @@ env = os.getenv('ENV')
 
 base_path = os.path.dirname(os.path.dirname(__file__))
 
-package_path = os.path.join(base_path, 'package')
+media_path = os.path.join(base_path, "media")
 
-file_path = os.path.join(package_path, 'app-release.apk')
-
-screen_path = os.path.join(base_path, 'picture')
+screenshot_path = os.path.join(media_path, "screenshot")
 
 config_path = os.path.join(base_path, 'config')
 
