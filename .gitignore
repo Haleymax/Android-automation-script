@@ -22,3 +22,4 @@ allure-report/
 config/prod_config.yaml
 
 env/
+test_case/test_xiaoheihe/__pycache__
