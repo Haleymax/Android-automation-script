@@ -20,6 +20,7 @@ class TestDailyCheckIn:
         app.unlock()
         app.start_app()
         app.click_me()
+        app.click_check_in()
         file = app.get_screenshot("me")
         allure.attach.file(
             source=file,
