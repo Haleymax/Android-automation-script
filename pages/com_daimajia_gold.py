@@ -26,6 +26,26 @@ class DaimajiaGold(BasePage):
             logger.error(f"点击'{text}'失败: {e}")
         sleep(2)
 
+    def click_element(self, text:str):
+        try:
+            if self.client(text=text).wait(timeout=10.0):
+                self.client(text=text).click()
+                logger.info(f"点击: {text}")
+        except Exception as e:
+            logger.info(f"点击'{text}'失败: {e}")
+        finally:
+            sleep(2)
+
+    def click_attendance(self, id="com.daimajia.gold:id/ll_sign"):
+        try:
+            if self.client(id).wait(timeout=10.0):
+                self.client(id).click()
+                logger.info("点击每日签到")
+        except Exception as e:
+            logger.info(f"点击每日签到失败: {e}")
+        finally:
+            sleep(2)
+
     def click_check_in(self):
         try:
             if self.client(resourceId=self.SIGN_BUTTON_ID).wait(timeout=10.0):
