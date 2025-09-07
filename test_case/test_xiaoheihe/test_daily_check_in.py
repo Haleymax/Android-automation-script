@@ -13,6 +13,16 @@ class TestDailyCheckIn:
         app = Xiaoheihe()
         app.weak_up()
         app.unlock()
+        app.close_app()
         app.start_app()
+        app.click_me()
+        app.click_my_task()
+        app.click_share_post()
+        app.click_post()
+        app.click_share_button()
+        app.click_forward_QQ()
+        app.click_to_my_computer()
+        app.click_send_button()
+        app.click_return_app()
 
         assert True
